@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/AnimalRescue.iml" filepath="$PROJECT_DIR$/AnimalRescue.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Parse-1.8.0/Parse-1.8.0.iml" filepath="$PROJECT_DIR$/Parse-1.8.0/Parse-1.8.0.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ParseCrashReporting-1.8.0/ParseCrashReporting-1.8.0.iml" filepath="$PROJECT_DIR$/ParseCrashReporting-1.8.0/ParseCrashReporting-1.8.0.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bolts-android-1.1.4/bolts-android-1.1.4.iml" filepath="$PROJECT_DIR$/bolts-android-1.1.4/bolts-android-1.1.4.iml" />
+    </modules>
+  </component>
+</project>
+
