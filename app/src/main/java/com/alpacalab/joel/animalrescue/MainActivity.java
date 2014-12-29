@@ -1,26 +1,36 @@
 package com.alpacalab.joel.animalrescue;
 
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
+import com.parse.FindCallback;
 import com.parse.Parse;
 import com.parse.ParseAnalytics;
 import com.parse.ParseException;
 import com.parse.ParseInstallation;
 import com.parse.ParseObject;
 import com.parse.ParsePush;
+import com.parse.ParseQuery;
 import com.parse.SaveCallback;
 
+import java.util.ArrayList;
+import java.util.List;
 
-public class MainActivity extends ActionBarActivity {
+
+public class MainActivity extends ActionBarActivity implements AdapterView.OnItemClickListener {
     private EditText mTaskInput;
     private ListView mListView;
+    private TaskAdapter mAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +39,7 @@ public class MainActivity extends ActionBarActivity {
 
         // Enable Local Datastore.
         Parse.initialize(this, "H4ZKGFj7YJCYpy8UV1n0ZYGzEO4lMK5OMC5LXBIx", "tkrSkoYrZIYmVVzIuolxL8bV7N9iZDCFnkfCQqMm");
-        Parse.enableLocalDatastore(this);
+        //Parse.enableLocalDatastore(this);
         ParseObject.registerSubclass(Task.class);
 
         // Save the current Installation to Parse.
@@ -49,7 +59,12 @@ public class MainActivity extends ActionBarActivity {
 
         mTaskInput = (EditText) findViewById(R.id.task_input);
         mListView = (ListView) findViewById(R.id.task_list);
-        
+
+        mAdapter = new TaskAdapter(this, new ArrayList<Task>());
+        mListView.setAdapter(mAdapter);
+        mListView.setOnItemClickListener(this);
+
+        updateData();
     }
 
     public void createTask(View v) {
@@ -59,7 +74,38 @@ public class MainActivity extends ActionBarActivity {
             t.setCompleted(false);
             t.saveEventually();
             mTaskInput.setText("");
+            mAdapter.insert(t, 0);
         }
+    }
+
+    public void updateData() {
+        ParseQuery<Task> query = ParseQuery.getQuery(Task.class);
+        query.setCachePolicy(ParseQuery.CachePolicy.CACHE_THEN_NETWORK);
+        query.findInBackground(new FindCallback<Task>() {
+            @Override
+            public void done(List<Task> tasks, ParseException e) {
+                if(tasks != null) {
+                    mAdapter.clear();
+                    mAdapter.addAll(tasks);
+                }
+            }
+        });
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Task task = mAdapter.getItem(position);
+        TextView taskDescription = (TextView) view.findViewById(R.id.task_description);
+
+        task.setCompleted(!task.isCompleted());
+
+        if(task.isCompleted()){
+            taskDescription.setPaintFlags(taskDescription.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        }else{
+            taskDescription.setPaintFlags(taskDescription.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
+        }
+
+        task.saveEventually();
     }
 
 
