@@ -37,9 +37,8 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Enable Local Datastore.
+        // Parse intialisation .
         Parse.initialize(this, "H4ZKGFj7YJCYpy8UV1n0ZYGzEO4lMK5OMC5LXBIx", "tkrSkoYrZIYmVVzIuolxL8bV7N9iZDCFnkfCQqMm");
-        //Parse.enableLocalDatastore(this);
         ParseObject.registerSubclass(Task.class);
 
         // Save the current Installation to Parse.
