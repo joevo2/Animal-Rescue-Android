@@ -6,5 +6,7 @@
     <string name="title_activity_login">Sign In</string>
     <string name="title_activity_register">Sign Up</string>
     <string name="username">Username</string>
+    <string name="signin">Sign In</string>
+    <string name="signup">Sign Up</string>
 
 </resources>

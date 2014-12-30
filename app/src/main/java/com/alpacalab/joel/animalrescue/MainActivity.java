@@ -1,5 +1,6 @@
 package com.alpacalab.joel.animalrescue;
 
+import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -124,6 +125,20 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent intent = new Intent(this, RegisterActivity.class);
+            startActivity(intent);
+            return true;
+        }
+
+        if (id == R.id.sign_up) {
+            Intent intent = new Intent(this, RegisterActivity.class);
+            startActivity(intent);
+            return true;
+        }
+
+        if (id == R.id.sign_in) {
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
             return true;
         }
 
