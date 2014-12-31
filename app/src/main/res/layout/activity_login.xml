@@ -17,6 +17,11 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/error_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/username"/>
@@ -43,6 +48,7 @@
             android:inputType="textPassword"/>
         <Button
             android:id="@+id/sign_in"
+            android:onClick="signIn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
