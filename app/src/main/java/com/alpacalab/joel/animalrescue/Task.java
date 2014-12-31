@@ -2,6 +2,7 @@ package com.alpacalab.joel.animalrescue;
 
 import com.parse.ParseClassName;
 import com.parse.ParseObject;
+import com.parse.ParseUser;
 
 /**
  * Created by Joel on 12/24/14.
@@ -27,5 +28,9 @@ public class Task extends ParseObject{
 
     public void setDescription(String description) {
         put("description",description);
+    }
+
+    public void setUser(ParseUser user) {
+        put("user", user);
     }
 }

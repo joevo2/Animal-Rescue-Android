@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.parse.FindCallback;
 import com.parse.Parse;
+import com.parse.ParseACL;
 import com.parse.ParseAnalytics;
 import com.parse.ParseException;
 import com.parse.ParseInstallation;
@@ -81,6 +82,8 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
             Task t = new Task();
             t.setDescription(mTaskInput.getText().toString());
             t.setCompleted(false);
+            t.setACL(new ParseACL(ParseUser.getCurrentUser()));
+            t.setUser(ParseUser.getCurrentUser());
             t.saveEventually();
             mTaskInput.setText("");
             mAdapter.insert(t, 0);
