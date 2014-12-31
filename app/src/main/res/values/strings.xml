@@ -8,5 +8,6 @@
     <string name="username">Username</string>
     <string name="signin">Sign In</string>
     <string name="signup">Sign Up</string>
+    <string name="logout">Logout</string>
 
 </resources>

@@ -3,8 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools" tools:context=".MainActivity">
     <item android:id="@+id/action_settings" android:title="@string/action_settings"
         android:orderInCategory="100" app:showAsAction="never" />
-    <item android:id="@+id/sign_up" android:title="@string/signup"
-        android:orderInCategory="100" app:showAsAction="never" />
-    <item android:id="@+id/sign_in" android:title="@string/signin"
+    <item android:id="@+id/logout" android:title="@string/logout"
         android:orderInCategory="100" app:showAsAction="never" />
 </menu>

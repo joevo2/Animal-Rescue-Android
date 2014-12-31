@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.parse.Parse;
 import com.parse.ParseException;
@@ -18,17 +19,16 @@ import com.parse.SignUpCallback;
 public class RegisterActivity extends ActionBarActivity {
     private EditText mUsernameField;
     private EditText mPasswordField;
+    private TextView mErrorMessage;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-
-        Parse.initialize(this, "H4ZKGFj7YJCYpy8UV1n0ZYGzEO4lMK5OMC5LXBIx", "tkrSkoYrZIYmVVzIuolxL8bV7N9iZDCFnkfCQqMm");
-
         mUsernameField = (EditText) findViewById(R.id.register_username);
         mPasswordField = (EditText) findViewById(R.id.register_password);
-
+        mErrorMessage = (TextView) findViewById(R.id.error_message);
     }
 
 
@@ -56,10 +56,25 @@ public class RegisterActivity extends ActionBarActivity {
                     finish();
                 } else {
                     //Sign up not succeed
+                    switch (e.getCode()) {
+                        case ParseException.USERNAME_MISSING:
+                            mErrorMessage.setText("Please insert username");
+                            break;
+                        case ParseException.PASSWORD_MISSING:
+                            mErrorMessage.setText("Please insert password");
+                            break;
+                        case ParseException.USERNAME_TAKEN:
+                            mErrorMessage.setText("Sorry, username has been taken.");
+                            break;
+                        default:
+                            mErrorMessage.setText(e.getLocalizedMessage());
+                            break;
+                    }
                     v.setEnabled(true);
                 }
             }
         });
+
     }
 
     public void showLogin(View v) {

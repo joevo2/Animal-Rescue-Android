@@ -21,6 +21,7 @@ import com.parse.ParseInstallation;
 import com.parse.ParseObject;
 import com.parse.ParsePush;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
 import java.util.ArrayList;
@@ -56,6 +57,14 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
                 }
             }
         });
+
+        //If user not logged in send to login Activity
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        if (currentUser == null) {
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+        }
 
         mTaskInput = (EditText) findViewById(R.id.task_input);
         mListView = (ListView) findViewById(R.id.task_list);
@@ -125,20 +134,16 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-//            Intent intent = new Intent(this, RegisterActivity.class);
+//            Intent intent = new Intent(this, SettingsActivity.class);
 //            startActivity(intent);
             return true;
         }
 
-        if (id == R.id.sign_up) {
-            Intent intent = new Intent(this, RegisterActivity.class);
-            startActivity(intent);
-            return true;
-        }
-
-        if (id == R.id.sign_in) {
+        if (id == R.id.logout) {
+            ParseUser.logOut();
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
+            finish();
             return true;
         }
 
