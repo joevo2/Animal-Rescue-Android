@@ -9,5 +9,10 @@
     <string name="signin">Sign In</string>
     <string name="signup">Sign Up</string>
     <string name="logout">Logout</string>
+    <string name="title_activity_main_activity2">Animal Rescue</string>
+    <string name="title_section1">Rescue Feed</string>
+    <string name="title_section2">Map</string>
+    <string name="title_section3">Profile</string>
+    <string name="hello_world">Hello world!</string>
 
 </resources>
