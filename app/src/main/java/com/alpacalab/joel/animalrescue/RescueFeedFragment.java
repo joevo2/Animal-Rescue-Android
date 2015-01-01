@@ -17,9 +17,12 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.parse.FindCallback;
 import com.parse.Parse;
 import com.parse.ParseACL;
+import com.parse.ParseCrashReporting;
 import com.parse.ParseException;
 import com.parse.ParseInstallation;
 import com.parse.ParseObject;
@@ -55,34 +58,6 @@ public class RescueFeedFragment extends Fragment implements AdapterView.OnItemCl
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         RelativeLayout rootView = (RelativeLayout) inflater.inflate(R.layout.fragment_rescue_feed, container, false);
-
-        // Parse intialisation .
-        Parse.initialize(getActivity(), "H4ZKGFj7YJCYpy8UV1n0ZYGzEO4lMK5OMC5LXBIx", "tkrSkoYrZIYmVVzIuolxL8bV7N9iZDCFnkfCQqMm");
-        ParseObject.registerSubclass(Task.class);
-
-        // Save the current Installation to Parse.
-        ParseInstallation.getCurrentInstallation().saveInBackground();
-
-        //Parse subsribe channel
-        ParsePush.subscribeInBackground("", new SaveCallback() {
-            @Override
-            public void done(ParseException e) {
-                if (e == null) {
-                    Log.d("com.parse.push", "successfully subscribed to the broadcast channel.");
-                } else {
-                    Log.e("com.parse.push", "failed to subscribe for push", e);
-                }
-            }
-        });
-
-        //If user not logged in send to login Activity
-        ParseUser currentUser = ParseUser.getCurrentUser();
-        if (currentUser == null) {
-            Intent intent = new Intent(getActivity(), LoginActivity.class);
-            startActivity(intent);
-            getActivity().finish();
-        }
-
         mTaskInput = (EditText) rootView.findViewById(R.id.task_input);
         mListView = (ListView) rootView.findViewById(R.id.task_list);
 
@@ -97,6 +72,8 @@ public class RescueFeedFragment extends Fragment implements AdapterView.OnItemCl
 
         updateData();
 
+
+        //Submit button
         Button mButton = (Button) rootView.findViewById(R.id.submit_button);
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,6 +88,16 @@ public class RescueFeedFragment extends Fragment implements AdapterView.OnItemCl
                     mTaskInput.setText("");
                     mAdapter.insert(t, 0);
                 }
+            }
+        });
+
+        //Submit button
+        FloatingActionButton mAction = (FloatingActionButton) rootView.findViewById(R.id.action_a);
+        mAction.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), RescueRequest.class);
+                startActivity(intent);
             }
         });
 

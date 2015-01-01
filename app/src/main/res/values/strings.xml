@@ -14,5 +14,6 @@
     <string name="title_section2">Map</string>
     <string name="title_section3">Profile</string>
     <string name="hello_world">Hello world!</string>
+    <string name="title_activity_rescue_request">RescueRequest</string>
 
 </resources>
