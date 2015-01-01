@@ -13,6 +13,7 @@
             <option value="$PROJECT_DIR$/ParseCrashReporting-1.8.0" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/bolts-android-1.1.4" />
+            <option value="$PROJECT_DIR$/library" />
           </set>
         </option>
       </GradleProjectSettings>

@@ -1,1 +1,1 @@
-include ':app', ':bolts-android-1.1.4', ':Parse-1.8.0', ':ParseCrashReporting-1.8.0'
+include ':app', ':bolts-android-1.1.4', ':Parse-1.8.0', ':ParseCrashReporting-1.8.0', ':library'
