@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    tools:context="com.alpacalab.joel.animalrescue.MainActivity.RescueFeedFragment" >
+    tools:context=".MainActivity" >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -35,6 +35,6 @@
         android:id="@+id/task_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
-
+    
 
 </LinearLayout>
