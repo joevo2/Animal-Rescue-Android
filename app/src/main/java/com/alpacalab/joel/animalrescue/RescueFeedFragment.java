@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -31,7 +32,7 @@ import java.util.List;
 /**
  * Created by Joel on 12/31/14.
  */
-public class RescueFeedFragment extends Fragment {
+public class RescueFeedFragment extends Fragment implements AdapterView.OnItemClickListener{
     private EditText mTaskInput;
     private ListView mListView;
     private TaskAdapter mAdapter;
@@ -83,7 +84,7 @@ public class RescueFeedFragment extends Fragment {
         mTaskInput = (EditText) rootView.findViewById(R.id.task_input);
         mListView = (ListView) rootView.findViewById(R.id.task_list);
 
-        mAdapter = new TaskAdapter(getActivity(), new ArrayList<Task>());
+        mAdapter = new TaskAdapter(this.getActivity(), new ArrayList<Task>());
         mListView.setAdapter(mAdapter);
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -94,12 +95,10 @@ public class RescueFeedFragment extends Fragment {
 
         updateData();
 
-        return rootView;
-    }
-
-    public void createTask(View v) {
-        switch (v.getId()) {
-            case R.id.submit_button:
+        Button mButton = (Button) rootView.findViewById(R.id.submit_button);
+        mButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 if(mTaskInput.getText().length() > 0) {
                     Task t = new Task();
                     t.setDescription(mTaskInput.getText().toString());
@@ -110,8 +109,10 @@ public class RescueFeedFragment extends Fragment {
                     mTaskInput.setText("");
                     mAdapter.insert(t, 0);
                 }
-        }
+            }
+        });
 
+        return rootView;
     }
 
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
