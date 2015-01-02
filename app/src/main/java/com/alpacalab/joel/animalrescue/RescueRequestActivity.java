@@ -1,6 +1,9 @@
 package com.alpacalab.joel.animalrescue;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -16,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.os.Build;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -61,7 +65,7 @@ public class RescueRequestActivity extends ActionBarActivity {
     /**
      * A placeholder fragment containing a simple view.
      */
-
+    //Camera2 API stuff
     public static final int MEDIA_TYPE_IMAGE = 1;
     public static final int MEDIA_TYPE_VIDEO = 2;
 
@@ -77,7 +81,7 @@ public class RescueRequestActivity extends ActionBarActivity {
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_rescue_request, container, false);
 
-
+            ImageView mImage = (ImageView) rootView.findViewById(R.id.picture_preview);
             Button mCamera = (Button) rootView.findViewById(R.id.camera);
             mCamera.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -91,10 +95,24 @@ public class RescueRequestActivity extends ActionBarActivity {
                     startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
                 }
             });
+
+            mImage.setImageURI(fileUri);
+
+//            if(fileUri!=null)
+//            {
+//                Bitmap myImg = BitmapFactory.decodeFile(fileUri.getPath());
+//                Matrix matrix = new Matrix();
+//                matrix.postRotate(90);
+//                Bitmap rotated = Bitmap.createBitmap(myImg, 0, 0, myImg.getWidth(), myImg.getHeight(),
+//                        matrix, true);
+//                mImage.setImageBitmap(rotated);
+//            }
+
             return rootView;
         }
     }
 
+    //Camera stuff
     /** Create a file Uri for saving an image or video */
     private static Uri getOutputMediaFileUri(int type){
         return Uri.fromFile(getOutputMediaFile(type));
