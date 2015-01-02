@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.alpacalab.joel.animalrescue" >
 
+    <uses-feature android:name="android.hardware.camera" android:required="false" />
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
@@ -9,6 +11,9 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <!--
       IMPORTANT: Change "com.parse.starter.permission.C2D_MESSAGE" in the lines below
@@ -78,7 +83,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".RescueRequest"
+            android:name=".RescueRequestActivity"
             android:label="@string/title_activity_rescue_request"
             android:parentActivityName=".MainActivity" >
             <meta-data

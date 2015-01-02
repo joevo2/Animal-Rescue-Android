@@ -13,7 +13,9 @@
     <string name="title_section1">Rescue Feed</string>
     <string name="title_section2">Map</string>
     <string name="title_section3">Profile</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="title_activity_rescue_request">RescueRequest</string>
+    <string name="rescue_request_description">Rescue Request are meant for animal in desperate need to be rescue</string>
+    <string name="title_activity_rescue_request">Rescue Request</string>
+    <string name="camera">Camera</string>
+    <string name="location">Location</string>
 
 </resources>

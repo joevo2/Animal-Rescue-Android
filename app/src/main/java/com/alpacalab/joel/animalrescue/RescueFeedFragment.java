@@ -4,15 +4,12 @@ import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.Layout;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -20,16 +17,10 @@ import android.widget.TextView;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.parse.FindCallback;
-import com.parse.Parse;
 import com.parse.ParseACL;
-import com.parse.ParseCrashReporting;
 import com.parse.ParseException;
-import com.parse.ParseInstallation;
-import com.parse.ParseObject;
-import com.parse.ParsePush;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
-import com.parse.SaveCallback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -91,15 +82,18 @@ public class RescueFeedFragment extends Fragment implements AdapterView.OnItemCl
             }
         });
 
-        //Submit button
+        //Floating action button
+        final FloatingActionsMenu mActionMenu = (FloatingActionsMenu) rootView.findViewById(R.id.multiple_actions);
         FloatingActionButton mAction = (FloatingActionButton) rootView.findViewById(R.id.action_a);
         mAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), RescueRequest.class);
+                Intent intent = new Intent(getActivity(), RescueRequestActivity.class);
                 startActivity(intent);
+                mActionMenu.collapse();
             }
         });
+
 
         return rootView;
     }
