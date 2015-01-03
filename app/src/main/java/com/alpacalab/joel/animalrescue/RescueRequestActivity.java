@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -20,6 +21,7 @@ import android.view.ViewGroup;
 import android.os.Build;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -71,7 +73,9 @@ public class RescueRequestActivity extends ActionBarActivity {
 
     public static class PlaceholderFragment extends Fragment {
         private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
+        private static final int CAPTURE_VIDEO_ACTIVITY_REQUEST_CODE = 200;
         private Uri fileUri;
+        private ImageView mImage;
 
         public PlaceholderFragment() {
         }
@@ -81,7 +85,7 @@ public class RescueRequestActivity extends ActionBarActivity {
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_rescue_request, container, false);
 
-            ImageView mImage = (ImageView) rootView.findViewById(R.id.picture_preview);
+            mImage = (ImageView) rootView.findViewById(R.id.picture_preview);
             Button mCamera = (Button) rootView.findViewById(R.id.camera);
             mCamera.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -90,13 +94,29 @@ public class RescueRequestActivity extends ActionBarActivity {
 
                     fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE); // create a file to save the image
                     intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri); // set the image file name
+                    intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1); // set the video image quality to high
 
                     // start the image capture Intent
                     startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
                 }
             });
 
-            mImage.setImageURI(fileUri);
+            //mImage.setImageURI(fileUri);
+            try {
+                // bimatp factory
+                BitmapFactory.Options options = new BitmapFactory.Options();
+
+                // downsizing image as it throws OutOfMemory Exception for larger
+                // images
+                options.inSampleSize = 8;
+
+                final Bitmap bitmap = BitmapFactory.decodeFile(fileUri.getPath(),
+                        options);
+
+                mImage.setImageBitmap(bitmap);
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+            }
 
 //            if(fileUri!=null)
 //            {
@@ -109,6 +129,49 @@ public class RescueRequestActivity extends ActionBarActivity {
 //            }
 
             return rootView;
+        }
+        private void previewCapturedImage() {
+            try {
+                // bimatp factory
+                BitmapFactory.Options options = new BitmapFactory.Options();
+
+                // downsizing image as it throws OutOfMemory Exception for larger
+                // images
+                options.inSampleSize = 1;
+
+                final Bitmap bitmap = BitmapFactory.decodeFile(fileUri.getPath(),
+                        options);
+
+                mImage.setImageBitmap(bitmap);
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+            }
+        }
+
+        //Receive camera result
+        @Override
+        public void onActivityResult(int requestCode, int resultCode, Intent data) {
+            if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
+                if (resultCode == RESULT_OK) {
+                    previewCapturedImage();
+
+                } else if (resultCode == RESULT_CANCELED) {
+                    // User cancelled the image capture
+                } else {
+                    // Image capture failed, advise user
+                }
+            }
+
+            if (requestCode == CAPTURE_VIDEO_ACTIVITY_REQUEST_CODE) {
+                if (resultCode == RESULT_OK) {
+                    // Video captured and saved to fileUri specified in the Intent
+
+                } else if (resultCode == RESULT_CANCELED) {
+                    // User cancelled the video capture
+                } else {
+                    // Video capture failed, advise user
+                }
+            }
         }
     }
 

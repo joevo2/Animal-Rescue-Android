@@ -82,11 +82,7 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
         }
 
 
-        // Parse intialisation
-        if (!ParseCrashReporting.isCrashReportingEnabled()) {
-            ParseCrashReporting.enable(this);
-        }
-        Parse.initialize(this, "H4ZKGFj7YJCYpy8UV1n0ZYGzEO4lMK5OMC5LXBIx", "tkrSkoYrZIYmVVzIuolxL8bV7N9iZDCFnkfCQqMm");
+
         ParseObject.registerSubclass(Task.class);
 
         // Save the current Installation to Parse.

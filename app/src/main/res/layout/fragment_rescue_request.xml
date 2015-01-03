@@ -48,7 +48,8 @@
             android:id="@+id/picture_preview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:contentDescription="Image Preview" />
+            android:contentDescription="Image Preview"
+            android:scaleType="centerInside"/>
 
     </LinearLayout>
 
