@@ -8,19 +8,37 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/linearLayout2">
+        android:id="@+id/linearLayout1">
         <TextView android:text="@string/rescue_request_description" android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/textView" />
+            android:id="@+id/rescue_info" />
+
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout2"
+        android:layout_below="@+id/linearLayout1">
+        <EditText
+            android:id="@+id/rescue_desc_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="text"
+            android:hint="Description">
+            <requestFocus />
+        </EditText>
+    </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/linearLayout2"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:id="@+id/linearLayout3">
+        android:id="@+id/linearLayout3"
+        android:layout_below="@+id/linearLayout2">
 
         <Button
             android:id="@+id/camera"
@@ -32,10 +50,9 @@
             android:id="@+id/location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/location"
-            android:layout_below="@+id/linearLayout3"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:text="@string/location"/>
+
+
 
     </LinearLayout>
     <LinearLayout
@@ -52,5 +69,15 @@
             android:scaleType="centerInside"/>
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/rescue_submit_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Request Rescue!"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
 
 </RelativeLayout>

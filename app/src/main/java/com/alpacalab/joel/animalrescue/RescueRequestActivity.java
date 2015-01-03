@@ -147,6 +147,8 @@ public class RescueRequestActivity extends ActionBarActivity {
                 }
             }
         }
+
+
     }
 
     //Camera stuff
