@@ -102,42 +102,16 @@ public class RescueRequestActivity extends ActionBarActivity {
             });
 
             //mImage.setImageURI(fileUri);
-            try {
-                // bimatp factory
-                BitmapFactory.Options options = new BitmapFactory.Options();
-
-                // downsizing image as it throws OutOfMemory Exception for larger
-                // images
-                options.inSampleSize = 8;
-
-                final Bitmap bitmap = BitmapFactory.decodeFile(fileUri.getPath(),
-                        options);
-
-                mImage.setImageBitmap(bitmap);
-            } catch (NullPointerException e) {
-                e.printStackTrace();
-            }
-
-//            if(fileUri!=null)
-//            {
-//                Bitmap myImg = BitmapFactory.decodeFile(fileUri.getPath());
-//                Matrix matrix = new Matrix();
-//                matrix.postRotate(90);
-//                Bitmap rotated = Bitmap.createBitmap(myImg, 0, 0, myImg.getWidth(), myImg.getHeight(),
-//                        matrix, true);
-//                mImage.setImageBitmap(rotated);
-//            }
-
             return rootView;
         }
         private void previewCapturedImage() {
             try {
-                // bimatp factory
+                // bitmap factory
                 BitmapFactory.Options options = new BitmapFactory.Options();
 
                 // downsizing image as it throws OutOfMemory Exception for larger
                 // images
-                options.inSampleSize = 1;
+                options.inSampleSize = 3;
 
                 final Bitmap bitmap = BitmapFactory.decodeFile(fileUri.getPath(),
                         options);
