@@ -53,7 +53,7 @@ public class RescueRequestFragment extends Fragment implements GoogleApiClient.C
 
         mImage = (ImageView) rootView.findViewById(R.id.picture_preview);
         Button mCamera = (Button) rootView.findViewById(R.id.camera);
-        mLocation = (TextView) rootView.findViewById(R.id.location);
+        //mLocation = (TextView) rootView.findViewById(R.id.location);
 
         mCamera.setOnClickListener(new View.OnClickListener() {
             @Override
