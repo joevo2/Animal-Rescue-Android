@@ -3,6 +3,7 @@ package com.alpacalab.joel.animalrescue;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -38,6 +39,9 @@ public class RescueRequestFragment extends Fragment implements GoogleApiClient.C
     private ImageView mImage;
     //Google Play Service
     private GoogleApiClient mGoogleApiClient;
+    //Location
+    private Location mLastLocation;
+    TextView mLocation;
 
     public RescueRequestFragment() {
     }
@@ -49,6 +53,8 @@ public class RescueRequestFragment extends Fragment implements GoogleApiClient.C
 
         mImage = (ImageView) rootView.findViewById(R.id.picture_preview);
         Button mCamera = (Button) rootView.findViewById(R.id.camera);
+        mLocation = (TextView) rootView.findViewById(R.id.location);
+
         mCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -164,7 +170,12 @@ public class RescueRequestFragment extends Fragment implements GoogleApiClient.C
 
     @Override
     public void onConnected(Bundle bundle) {
-
+        mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
+                mGoogleApiClient);
+        if (mLastLocation != null) {
+            mLocation.setText(String.valueOf(mLastLocation.getLatitude()));
+            //mLongitudeText.setText(String.valueOf(mLastLocation.getLongitude()));
+        }
     }
 
     @Override

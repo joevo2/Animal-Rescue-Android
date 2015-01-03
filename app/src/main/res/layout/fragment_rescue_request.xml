@@ -60,6 +60,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/linearLayout3">
+        <TextView
+            android:id="@id/location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Location"/>
 
         <ImageView
             android:id="@+id/picture_preview"
