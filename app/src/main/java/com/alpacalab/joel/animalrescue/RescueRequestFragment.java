@@ -109,11 +109,11 @@ public class RescueRequestFragment extends Fragment implements GoogleApiClient.C
             // images
             options.inSampleSize = 5;
 
-
             if (gallery == true) {
                 try {
                     final Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), fileUri);
                     mImage.setImageBitmap(bitmap);
+                    gallery = false;
                 } catch (Exception e ){
                     e.printStackTrace();
                 }

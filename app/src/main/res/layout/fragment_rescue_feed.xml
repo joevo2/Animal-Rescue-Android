@@ -45,10 +45,9 @@
         fab:fab_addButtonColorPressed="@color/pink_pressed"
         fab:fab_addButtonPlusIconColor="@color/white"
         fab:fab_labelStyle="@style/menu_labels_style"
-        android:layout_alignBottom="@+id/task_list"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="12dp">
+        android:layout_alignParentEnd="true">
 
         <com.getbase.floatingactionbutton.FloatingActionButton
             android:id="@+id/action_b"
