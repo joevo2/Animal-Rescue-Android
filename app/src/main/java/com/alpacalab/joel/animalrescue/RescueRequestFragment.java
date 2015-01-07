@@ -38,6 +38,8 @@ public class RescueRequestFragment extends Fragment implements GoogleApiClient.C
     public static final int MEDIA_TYPE_VIDEO = 2;
     private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
     private static final int CAPTURE_VIDEO_ACTIVITY_REQUEST_CODE = 200;
+    public static final int RESULT_GALLERY = 0;
+    private boolean gallery = false;
     private Uri fileUri;
     private ImageView mImage;
     //Google Play Service
@@ -80,7 +82,10 @@ public class RescueRequestFragment extends Fragment implements GoogleApiClient.C
                                 }
                                 //Second option "Gallery"
                                 if (list == 1) {
-
+                                    Intent galleryIntent = new Intent(
+                                            Intent.ACTION_PICK,
+                                            android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                                    startActivityForResult(galleryIntent , RESULT_GALLERY );
                                 }
                             }
                         });
@@ -102,12 +107,23 @@ public class RescueRequestFragment extends Fragment implements GoogleApiClient.C
 
             // downsizing image as it throws OutOfMemory Exception for larger
             // images
-            options.inSampleSize = 3;
+            options.inSampleSize = 5;
 
-            final Bitmap bitmap = BitmapFactory.decodeFile(fileUri.getPath(),
-                    options);
 
-            mImage.setImageBitmap(bitmap);
+            if (gallery == true) {
+                try {
+                    final Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), fileUri);
+                    mImage.setImageBitmap(bitmap);
+                } catch (Exception e ){
+                    e.printStackTrace();
+                }
+            } else {
+                final Bitmap bitmap = BitmapFactory.decodeFile(fileUri.getPath(),options);
+                mImage.setImageBitmap(bitmap);
+            }
+
+
+
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
@@ -176,6 +192,15 @@ public class RescueRequestFragment extends Fragment implements GoogleApiClient.C
             } else {
                 // Video capture failed, advise user
             }
+        }
+
+        if (requestCode == RESULT_GALLERY )
+        if (null != data) {
+            fileUri = data.getData();
+            gallery = true;
+            previewCapturedImage();
+            //Do whatever that you desire here. or leave this blank
+
         }
     }
 
