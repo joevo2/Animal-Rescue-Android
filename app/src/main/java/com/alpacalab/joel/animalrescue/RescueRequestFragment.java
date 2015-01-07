@@ -1,5 +1,8 @@
 package com.alpacalab.joel.animalrescue;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -58,22 +61,39 @@ public class RescueRequestFragment extends Fragment implements GoogleApiClient.C
         mCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle(R.string.image_option_description)
+                        .setItems(R.array.image_option, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int list) {
+                                // The 'which' argument contains the index position
+                                // of the selected item
 
-                fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE); // create a file to save the image
-                intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri); // set the image file name
-                intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1); // set the video image quality to high
+                                //First option "Camera"
+                                if (list == 0) {
+                                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                                    fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE); // create a file to save the image
+                                    intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri); // set the image file name
+                                    intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1); // set the video image quality to high
 
-                // start the image capture Intent
-                startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+                                    // start the image capture Intent
+                                    startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+                                }
+                                //Second option "Gallery"
+                                if (list == 1) {
+
+                                }
+                            }
+                        });
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
             }
         });
 
         buildGoogleApiClient();
-
-
         return rootView;
     }
+
+
 
     public void previewCapturedImage() {
         try {

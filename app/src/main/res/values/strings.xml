@@ -17,5 +17,11 @@
     <string name="title_activity_rescue_request">Rescue Request</string>
     <string name="camera">Camera</string>
     <string name="location">Location</string>
+    <string name="image_option_description">Image from</string>
+    <string-array name="image_option">
+        <item>Camera</item>
+        <item>Gallery</item>
+    </string-array>
+
 
 </resources>
