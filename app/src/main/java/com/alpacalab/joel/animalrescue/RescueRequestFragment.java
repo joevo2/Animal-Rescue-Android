@@ -46,7 +46,7 @@ public class RescueRequestFragment extends Fragment implements GoogleApiClient.C
     private GoogleApiClient mGoogleApiClient;
     //Location
     private Location mLastLocation;
-    TextView mLocation;
+    private TextView mLocation;
 
     public RescueRequestFragment() {
     }
@@ -56,41 +56,24 @@ public class RescueRequestFragment extends Fragment implements GoogleApiClient.C
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_rescue_request, container, false);
 
+        //View
         mImage = (ImageView) rootView.findViewById(R.id.picture_preview);
+        mLocation = (TextView) rootView.findViewById(R.id.location);
+        //Button
         Button mCamera = (Button) rootView.findViewById(R.id.camera);
-        //mLocation = (TextView) rootView.findViewById(R.id.location);
+        Button mGetLocation = (Button) rootView.findViewById(R.id.get_location);
 
         mCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                builder.setTitle(R.string.image_option_description)
-                        .setItems(R.array.image_option, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int list) {
-                                // The 'which' argument contains the index position
-                                // of the selected item
+                getFromGallery();
+            }
+        });
 
-                                //First option "Camera"
-                                if (list == 0) {
-                                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                                    fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE); // create a file to save the image
-                                    intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri); // set the image file name
-                                    intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1); // set the video image quality to high
+        mGetLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-                                    // start the image capture Intent
-                                    startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
-                                }
-                                //Second option "Gallery"
-                                if (list == 1) {
-                                    Intent galleryIntent = new Intent(
-                                            Intent.ACTION_PICK,
-                                            android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                                    startActivityForResult(galleryIntent , RESULT_GALLERY );
-                                }
-                            }
-                        });
-                AlertDialog alertDialog = builder.create();
-                alertDialog.show();
             }
         });
 
@@ -98,7 +81,36 @@ public class RescueRequestFragment extends Fragment implements GoogleApiClient.C
         return rootView;
     }
 
+    public void getFromGallery() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle(R.string.image_option_description)
+                .setItems(R.array.image_option, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int list) {
+                        // The 'which' argument contains the index position
+                        // of the selected item
 
+                        //First option "Camera"
+                        if (list == 0) {
+                            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                            fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE); // create a file to save the image
+                            intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri); // set the image file name
+                            intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1); // set the video image quality to high
+
+                            // start the image capture Intent
+                            startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+                        }
+                        //Second option "Gallery"
+                        if (list == 1) {
+                            Intent galleryIntent = new Intent(
+                                    Intent.ACTION_PICK,
+                                    android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                            startActivityForResult(galleryIntent , RESULT_GALLERY );
+                        }
+                    }
+                });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
 
     public void previewCapturedImage() {
         try {
