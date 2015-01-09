@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -70,14 +71,23 @@ public class RescueRequestFragment extends Fragment implements GoogleApiClient.C
             }
         });
 
+        buildGoogleApiClient();
+
         mGetLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Toast.makeText(getActivity(),"Button Pressed",Toast.LENGTH_SHORT).show();
+                mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+                Log.d("Test", mLastLocation.toString());
+                if (mLastLocation != null) {
+                    Toast.makeText(getActivity(),"Got Location",Toast.LENGTH_SHORT).show();
+                    mLocation.setText(String.valueOf(mLastLocation.getLatitude()));
+                    //mLongitudeText.setText(String.valueOf(mLastLocation.getLongitude()));
+                }
             }
         });
 
-        buildGoogleApiClient();
+
         return rootView;
     }
 
