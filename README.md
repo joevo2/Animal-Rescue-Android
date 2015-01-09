@@ -8,6 +8,6 @@ The organisation will be shown as Official Account/Channel for the App user to s
 
 Component
 ---------
--[Parse](http://www.parse.com)
--[Floating Action Bar](https://github.com/futuresimple/android-floating-action-button)
--[CardView](https://github.com/gabrielemariotti/cardslib)
+- [Parse](http://www.parse.com)
+- [Floating Action Bar](https://github.com/futuresimple/android-floating-action-button)
+- [CardView](https://github.com/gabrielemariotti/cardslib)
