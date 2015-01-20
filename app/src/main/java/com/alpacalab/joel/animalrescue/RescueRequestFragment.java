@@ -17,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,6 +25,9 @@ import android.widget.Toast;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
+import com.parse.ParseACL;
+import com.parse.ParseObject;
+import com.parse.ParseUser;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -48,6 +52,8 @@ public class RescueRequestFragment extends Fragment implements GoogleApiClient.C
     //Location
     private Location mLastLocation;
     private TextView mLocation;
+    //description
+    private EditText mDesc;
     //Debug
     protected static final String TAG = "RescueRequest";
 
@@ -59,13 +65,24 @@ public class RescueRequestFragment extends Fragment implements GoogleApiClient.C
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_rescue_request, container, false);
 
+        //Register ParseObject subclass
+        ParseObject.registerSubclass(Rescue.class);
+
         //View
         mImage = (ImageView) rootView.findViewById(R.id.picture_preview);
         mLocation = (TextView) rootView.findViewById(R.id.location);
+        //EditText
+        mDesc = (EditText) rootView.findViewById(R.id.rescue_desc_input);
+
         //Button
         Button mCamera = (Button) rootView.findViewById(R.id.camera);
         Button mGetLocation = (Button) rootView.findViewById(R.id.get_location);
+        Button mRescueRequest = (Button) rootView.findViewById(R.id.rescue_submit_button);
 
+        //Google Play Service
+        buildGoogleApiClient();
+
+        //Camera Button
         mCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,26 +90,61 @@ public class RescueRequestFragment extends Fragment implements GoogleApiClient.C
             }
         });
 
-        buildGoogleApiClient();
-
+        //Location Button
         mGetLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Get location
-                mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-                if (mLastLocation != null) {
-                    Toast.makeText(getActivity(),"Got Location",Toast.LENGTH_SHORT).show();
-                    Log.d(TAG,"Location is available");
-                    mLocation.setText(String.valueOf(mLastLocation.getLatitude()+", "+mLastLocation.getLongitude()));
-                    //mLongitudeText.setText(String.valueOf(mLastLocation.getLongitude()));
-                } else {
-                    Toast.makeText(getActivity(),"No Location is detected", Toast.LENGTH_LONG).show();
-                    Log.d(TAG,"Location is null");
-                }
+                getLocation();
+            }
+        });
+
+        //Rescue Request Button
+        mRescueRequest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createRescue();
             }
         });
 
         return rootView;
+    }
+
+    public void createRescue() {
+        if (mDesc.getText().length() > 0 && mLastLocation != null) {
+            Rescue r = new Rescue();
+            r.setDescription(mDesc.getText().toString());
+            //Image is not working yet
+            r.setImage();
+            r.setLocation(mLastLocation.getLatitude(), mLastLocation.getLongitude());
+            r.setRescueStatus(false);
+            r.setACL(new ParseACL(ParseUser.getCurrentUser()));
+            r.setUser(ParseUser.getCurrentUser());
+            r.saveEventually();
+            mDesc.setText("");
+
+            Toast.makeText(getActivity(),"Rescue Request Submited",Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(getActivity(),MainActivity.class);
+            startActivity(intent);
+            getActivity().finish();
+        } else {
+            Toast.makeText(getActivity(),"Rescue Request Incomplete",Toast.LENGTH_SHORT).show();
+        }
+
+
+    }
+
+    public void getLocation() {
+        //Get location
+        mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+        if (mLastLocation != null) {
+            Toast.makeText(getActivity(),"Got Location",Toast.LENGTH_SHORT).show();
+            Log.d(TAG,"Location is available");
+            mLocation.setText(String.valueOf(mLastLocation.getLatitude()+", "+mLastLocation.getLongitude()));
+            //mLongitudeText.setText(String.valueOf(mLastLocation.getLongitude()));
+        } else {
+            Toast.makeText(getActivity(),"No Location is detected", Toast.LENGTH_LONG).show();
+            Log.d(TAG,"Location is null");
+        }
     }
 
     public void getFromGallery() {
@@ -155,8 +207,7 @@ public class RescueRequestFragment extends Fragment implements GoogleApiClient.C
         }
     }
 
-    //Camera stuff
-    // Create a file Uri for saving an image or video
+    //Create a file Uri for saving an image or video
     public static Uri getOutputMediaFileUri(int type){
         return Uri.fromFile(getOutputMediaFile(type));
     }

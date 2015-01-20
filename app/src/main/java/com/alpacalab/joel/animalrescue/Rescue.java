@@ -1,6 +1,7 @@
 package com.alpacalab.joel.animalrescue;
 
 import com.parse.ParseClassName;
+import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 
@@ -21,11 +22,20 @@ public class Rescue extends ParseObject{
         return getString("description");
     }
 
-    public void setStatus(boolean status) {
+    public void setImage() {
+
+    }
+
+    public void setLocation(double lad, double lon) {
+        ParseGeoPoint point = new ParseGeoPoint(lad, lon);
+        put("location", point);
+    }
+
+    public void setRescueStatus(boolean status) {
         put("status",status);
     }
 
-    public boolean getStatus() {
+    public boolean getRescueStatus() {
         return getBoolean("status");
     }
 
