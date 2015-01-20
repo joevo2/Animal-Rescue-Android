@@ -48,6 +48,8 @@ public class RescueRequestFragment extends Fragment implements GoogleApiClient.C
     //Location
     private Location mLastLocation;
     private TextView mLocation;
+    //Debug
+    protected static final String TAG = "RescueRequest";
 
     public RescueRequestFragment() {
     }
@@ -76,17 +78,19 @@ public class RescueRequestFragment extends Fragment implements GoogleApiClient.C
         mGetLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(),"Button Pressed",Toast.LENGTH_SHORT).show();
+                //Get location
                 mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-                Log.d("Test", mLastLocation.toString());
                 if (mLastLocation != null) {
                     Toast.makeText(getActivity(),"Got Location",Toast.LENGTH_SHORT).show();
-                    mLocation.setText(String.valueOf(mLastLocation.getLatitude()));
+                    Log.d(TAG,"Location is available");
+                    mLocation.setText(String.valueOf(mLastLocation.getLatitude()+", "+mLastLocation.getLongitude()));
                     //mLongitudeText.setText(String.valueOf(mLastLocation.getLongitude()));
+                } else {
+                    Toast.makeText(getActivity(),"No Location is detected", Toast.LENGTH_LONG).show();
+                    Log.d(TAG,"Location is null");
                 }
             }
         });
-
 
         return rootView;
     }
@@ -152,12 +156,12 @@ public class RescueRequestFragment extends Fragment implements GoogleApiClient.C
     }
 
     //Camera stuff
-    /** Create a file Uri for saving an image or video */
+    // Create a file Uri for saving an image or video
     public static Uri getOutputMediaFileUri(int type){
         return Uri.fromFile(getOutputMediaFile(type));
     }
 
-    /** Create a File for saving an image or video */
+    // Create a File for saving an image or video
     public static File getOutputMediaFile(int type){
         // To be safe, you should check that the SDCard is mounted
         // using Environment.getExternalStorageState() before doing this.
@@ -237,22 +241,41 @@ public class RescueRequestFragment extends Fragment implements GoogleApiClient.C
 
     @Override
     public void onConnected(Bundle bundle) {
-        mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
-                mGoogleApiClient);
-        if (mLastLocation != null) {
-            mLocation.setText(String.valueOf(mLastLocation.getLatitude()));
-            //mLongitudeText.setText(String.valueOf(mLastLocation.getLongitude()));
-        }
+//        mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
+//                mGoogleApiClient);
+//        if (mLastLocation != null) {
+//            Toast.makeText(getActivity(),"Got Location",Toast.LENGTH_SHORT).show();
+//            Log.d(TAG,"Location is available");
+//            //mLocation.setText(String.valueOf(mLastLocation.getLatitude()));
+//            //mLongitudeText.setText(String.valueOf(mLastLocation.getLongitude()));
+//        } else {
+//            Toast.makeText(getActivity(),"No Location is detected", Toast.LENGTH_LONG).show();
+//        }
     }
 
     @Override
     public void onConnectionSuspended(int i) {
-
+        Log.i(TAG, "Connection suspended");
+        mGoogleApiClient.connect();
     }
 
     @Override
-    public void onConnectionFailed(ConnectionResult connectionResult) {
+    public void onConnectionFailed(ConnectionResult result) {
+        Log.i(TAG, "Connection failed: ConnectionResult.getErrorCode() = " + result.getErrorCode());
+    }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        mGoogleApiClient.connect();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mGoogleApiClient.isConnected()) {
+            mGoogleApiClient.disconnect();
+        }
     }
 }
 
