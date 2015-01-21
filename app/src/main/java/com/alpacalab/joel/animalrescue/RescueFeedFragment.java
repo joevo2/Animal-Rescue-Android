@@ -28,7 +28,7 @@ import java.util.List;
 /**
  * Created by Joel on 12/31/14.
  */
-public class RescueFeedFragment extends Fragment implements AdapterView.OnItemClickListener{
+public class RescueFeedFragment extends Fragment{
     private EditText mTaskInput;
     private ListView mListView;
     private TaskAdapter mAdapter;
@@ -46,41 +46,8 @@ public class RescueFeedFragment extends Fragment implements AdapterView.OnItemCl
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         RelativeLayout rootView = (RelativeLayout) inflater.inflate(R.layout.fragment_rescue_feed, container, false);
-        mTaskInput = (EditText) rootView.findViewById(R.id.task_input);
-        mListView = (ListView) rootView.findViewById(R.id.task_list);
-
-        mAdapter = new TaskAdapter(this.getActivity(), new ArrayList<Task>());
-        mListView.setAdapter(mAdapter);
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-            }
-        });
-
-        updateData();
-
-
-        //Submit button
-        Button mButton = (Button) rootView.findViewById(R.id.submit_button);
-        mButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(mTaskInput.getText().length() > 0) {
-                    Task t = new Task();
-                    t.setDescription(mTaskInput.getText().toString());
-                    t.setCompleted(false);
-                    t.setACL(new ParseACL(ParseUser.getCurrentUser()));
-                    t.setUser(ParseUser.getCurrentUser());
-                    t.saveEventually();
-                    mTaskInput.setText("");
-                    mAdapter.insert(t, 0);
-                }
-            }
-        });
 
         //Floating action button
         final FloatingActionsMenu mActionMenu = (FloatingActionsMenu) rootView.findViewById(R.id.multiple_actions);
@@ -94,36 +61,6 @@ public class RescueFeedFragment extends Fragment implements AdapterView.OnItemCl
             }
         });
 
-
         return rootView;
-    }
-
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Task task = mAdapter.getItem(position);
-        TextView taskDescription = (TextView) view.findViewById(R.id.task_description);
-
-        task.setCompleted(!task.isCompleted());
-
-        if(task.isCompleted()){
-            taskDescription.setPaintFlags(taskDescription.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-        }else{
-            taskDescription.setPaintFlags(taskDescription.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
-        }
-
-        task.saveEventually();
-    }
-
-    public void updateData() {
-        ParseQuery<Task> query = ParseQuery.getQuery(Task.class);
-        query.setCachePolicy(ParseQuery.CachePolicy.CACHE_THEN_NETWORK);
-        query.findInBackground(new FindCallback<Task>() {
-            @Override
-            public void done(List<Task> tasks, ParseException e) {
-                if(tasks != null) {
-                    mAdapter.clear();
-                    mAdapter.addAll(tasks);
-                }
-            }
-        });
     }
 }

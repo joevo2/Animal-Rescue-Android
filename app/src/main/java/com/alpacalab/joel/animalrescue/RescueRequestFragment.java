@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,15 +47,20 @@ public class RescueRequestFragment extends Fragment implements GoogleApiClient.C
     public static final int RESULT_GALLERY = 0;
     private boolean gallery = false;
     private Uri fileUri;
-    private ImageView mImage;
     private Bitmap bitmap;
     //Google Play Service
     private GoogleApiClient mGoogleApiClient;
     //Location
     private Location mLastLocation;
-    private TextView mLocation;
-    //description
+
+    //Widget
     private EditText mDesc;
+    private ImageView mImage;
+    private TextView mLocation;
+    private RadioGroup mAnimal;
+    private String animal;
+
+
     //Debug
     protected static final String TAG = "RescueRequest";
 
@@ -69,11 +75,11 @@ public class RescueRequestFragment extends Fragment implements GoogleApiClient.C
         //Register ParseObject subclass
         ParseObject.registerSubclass(Rescue.class);
 
-        //View
+        //Widget
         mImage = (ImageView) rootView.findViewById(R.id.picture_preview);
         mLocation = (TextView) rootView.findViewById(R.id.location);
-        //EditText
         mDesc = (EditText) rootView.findViewById(R.id.rescue_desc_input);
+        mAnimal = (RadioGroup) rootView.findViewById(R.id.animal_type);
 
         //Button
         Button mCamera = (Button) rootView.findViewById(R.id.camera);
@@ -88,6 +94,23 @@ public class RescueRequestFragment extends Fragment implements GoogleApiClient.C
             @Override
             public void onClick(View v) {
                 getImage();
+            }
+        });
+
+        mAnimal.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.cat:
+                        animal = "cat";
+                        break;
+                    case R.id.dog:
+                        animal = "dog";
+                        break;
+                    case R.id.others:
+                        animal = "others";
+                        break;
+                }
             }
         });
 
@@ -111,9 +134,10 @@ public class RescueRequestFragment extends Fragment implements GoogleApiClient.C
     }
 
     public void createRescue() {
-        if (mDesc.getText().length() > 0 && mLastLocation != null) {
+        if (mDesc.getText().length() > 0 && mLastLocation != null && animal != null) {
             Rescue r = new Rescue();
             r.setDescription(mDesc.getText().toString());
+            r.setAnimal(animal);
             //Image is not working yet
             //r.setImage(fileUri, bitmap);
             r.setLocation(mLastLocation.getLatitude(), mLastLocation.getLongitude());

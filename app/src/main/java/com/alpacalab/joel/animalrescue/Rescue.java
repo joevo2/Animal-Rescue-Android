@@ -30,6 +30,14 @@ public class Rescue extends ParseObject{
         return getString("description");
     }
 
+    public void setAnimal(String animal) {
+        put("animal", animal);
+    }
+
+    public String getAnimal() {
+        return getString("animal");
+    }
+
     public void setImage(Uri uri, Bitmap bitmap) {
         // Convert it to byte
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
@@ -41,7 +49,7 @@ public class Rescue extends ParseObject{
         try
         {
             file.save();
-            put("Image", file);
+            put("image", file);
             Log.d("IMAGE","Image saved");
         }
         catch (ParseException e)

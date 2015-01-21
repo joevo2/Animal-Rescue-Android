@@ -17,7 +17,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/linearLayout2"
+        android:id="@+id/linearLayoutDesc"
         android:layout_below="@+id/linearLayout1">
         <EditText
             android:id="@+id/rescue_desc_input"
@@ -31,6 +31,38 @@
         </EditText>
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/linearLayoutRadioButton"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearLayoutDesc">
+        <RadioGroup
+            android:id="@+id/animal_type"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cat"
+                android:id="@+id/cat" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/dog"
+                android:id="@+id/dog" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/others"
+                android:id="@+id/others" />
+        </RadioGroup>
+
+    </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -38,7 +70,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:id="@+id/linearLayout3"
-        android:layout_below="@+id/linearLayout2">
+        android:layout_below="@+id/linearLayoutRadioButton">
 
         <Button
             android:id="@+id/camera"
@@ -54,17 +86,16 @@
         <TextView
             android:id="@+id/location"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Location"/>
-
+            android:layout_height="wrap_content"/>
 
 
     </LinearLayout>
+
     <LinearLayout
         android:id="@+id/linearLayout4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/linearLayout3">
+        android:layout_below="@+id/linearLayoutRadioButton">
 
         <ImageView
             android:id="@+id/picture_preview"

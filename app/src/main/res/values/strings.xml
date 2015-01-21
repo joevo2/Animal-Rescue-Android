@@ -18,6 +18,9 @@
     <string name="camera">Camera</string>
     <string name="location">Location</string>
     <string name="image_option_description">Image from</string>
+    <string name="cat">Cat</string>
+    <string name="dog">Dog</string>
+    <string name="others">Others</string>
     <string-array name="image_option">
         <item>Camera</item>
         <item>Gallery</item>
