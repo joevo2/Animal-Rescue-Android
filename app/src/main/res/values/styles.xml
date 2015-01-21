@@ -1,13 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <style name="AppTheme" parent="AppTheme.Base"/>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
+    <style name="AppTheme.Base" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimary</item>
+
     </style>
 
+    <!-- Floating action bar -->
     <style name="menu_labels_style">
         <item name="android:background">@drawable/fab_label_background</item>
         <item name="android:textColor">@color/white</item>
     </style>
-
 </resources>
