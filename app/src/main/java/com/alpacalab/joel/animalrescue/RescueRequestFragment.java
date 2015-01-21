@@ -47,6 +47,7 @@ public class RescueRequestFragment extends Fragment implements GoogleApiClient.C
     private boolean gallery = false;
     private Uri fileUri;
     private ImageView mImage;
+    private Bitmap bitmap;
     //Google Play Service
     private GoogleApiClient mGoogleApiClient;
     //Location
@@ -86,7 +87,7 @@ public class RescueRequestFragment extends Fragment implements GoogleApiClient.C
         mCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getFromGallery();
+                getImage();
             }
         });
 
@@ -114,12 +115,12 @@ public class RescueRequestFragment extends Fragment implements GoogleApiClient.C
             Rescue r = new Rescue();
             r.setDescription(mDesc.getText().toString());
             //Image is not working yet
-            r.setImage();
+            //r.setImage(fileUri, bitmap);
             r.setLocation(mLastLocation.getLatitude(), mLastLocation.getLongitude());
             r.setRescueStatus(false);
             r.setACL(new ParseACL(ParseUser.getCurrentUser()));
             r.setUser(ParseUser.getCurrentUser());
-            r.saveEventually();
+            r.saveInBackground();
             mDesc.setText("");
 
             Toast.makeText(getActivity(),"Rescue Request Submited",Toast.LENGTH_LONG).show();
@@ -147,7 +148,7 @@ public class RescueRequestFragment extends Fragment implements GoogleApiClient.C
         }
     }
 
-    public void getFromGallery() {
+    public void getImage() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle(R.string.image_option_description)
                 .setItems(R.array.image_option, new DialogInterface.OnClickListener() {
@@ -182,21 +183,20 @@ public class RescueRequestFragment extends Fragment implements GoogleApiClient.C
         try {
             // bitmap factory
             BitmapFactory.Options options = new BitmapFactory.Options();
-
             // downsizing image as it throws OutOfMemory Exception for larger
             // images
             options.inSampleSize = 5;
 
             if (gallery == true) {
                 try {
-                    final Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), fileUri);
+                    bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), fileUri);
                     mImage.setImageBitmap(bitmap);
                     gallery = false;
                 } catch (Exception e ){
                     e.printStackTrace();
                 }
             } else {
-                final Bitmap bitmap = BitmapFactory.decodeFile(fileUri.getPath(),options);
+                bitmap = BitmapFactory.decodeFile(fileUri.getPath(),options);
                 mImage.setImageBitmap(bitmap);
             }
 
@@ -272,12 +272,10 @@ public class RescueRequestFragment extends Fragment implements GoogleApiClient.C
         }
 
         if (requestCode == RESULT_GALLERY )
-        if (null != data) {
+        if (data != null) {
             fileUri = data.getData();
             gallery = true;
             previewCapturedImage();
-            //Do whatever that you desire here. or leave this blank
-
         }
     }
 
