@@ -72,9 +72,6 @@ public class RescueRequestFragment extends Fragment implements GoogleApiClient.C
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_rescue_request, container, false);
 
-        //Register ParseObject subclass
-        ParseObject.registerSubclass(Rescue.class);
-
         //Widget
         mImage = (ImageView) rootView.findViewById(R.id.picture_preview);
         mLocation = (TextView) rootView.findViewById(R.id.location);

@@ -31,7 +31,7 @@ import java.util.List;
 public class RescueFeedFragment extends Fragment{
     private EditText mTaskInput;
     private ListView mListView;
-    private TaskAdapter mAdapter;
+    private RescueAdapter mAdapter;
     private static final String ARG_SECTION_NUMBER = "section_number";
 
     public static RescueFeedFragment newInstance(int sectionNumber) {
@@ -46,8 +46,16 @@ public class RescueFeedFragment extends Fragment{
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
         RelativeLayout rootView = (RelativeLayout) inflater.inflate(R.layout.fragment_rescue_feed, container, false);
+        mListView = (ListView) rootView.findViewById(R.id.rescue_list);
+
+        mAdapter = new RescueAdapter(this.getActivity(), new ArrayList<Rescue>());
+        mListView.setAdapter(mAdapter);
+        
+
+        updateData();
 
         //Floating action button
         final FloatingActionsMenu mActionMenu = (FloatingActionsMenu) rootView.findViewById(R.id.multiple_actions);
@@ -61,6 +69,22 @@ public class RescueFeedFragment extends Fragment{
             }
         });
 
+
         return rootView;
+    }
+
+
+    public void updateData() {
+        ParseQuery<Rescue> query = ParseQuery.getQuery(Rescue.class);
+        query.setCachePolicy(ParseQuery.CachePolicy.CACHE_THEN_NETWORK);
+        query.findInBackground(new FindCallback<Rescue>() {
+            @Override
+            public void done(List<Rescue> rescue, ParseException e) {
+                if(rescue != null) {
+                    mAdapter.clear();
+                    mAdapter.addAll(rescue);
+                }
+            }
+        });
     }
 }

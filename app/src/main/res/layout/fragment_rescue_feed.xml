@@ -8,13 +8,11 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     tools:context="com.alpacalab.joel.animalrescue.MainActivity.RescueFeedFragment" >
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:id="@+id/linearLayout">
 
-    </LinearLayout>
+    <ListView
+        android:id="@+id/rescue_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <com.getbase.floatingactionbutton.FloatingActionsMenu
         android:id="@+id/multiple_actions"

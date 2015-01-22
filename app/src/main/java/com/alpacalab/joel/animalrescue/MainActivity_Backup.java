@@ -71,6 +71,7 @@ public class MainActivity_Backup extends ActionBarActivity implements AdapterVie
 
         mAdapter = new TaskAdapter(this, new ArrayList<Task>());
         mListView.setAdapter(mAdapter);
+
         mListView.setOnItemClickListener(this);
 
         updateData();
