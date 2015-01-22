@@ -133,13 +133,17 @@ public class RescueRequestFragment extends Fragment implements GoogleApiClient.C
     public void createRescue() {
         if (mDesc.getText().length() > 0 && mLastLocation != null && animal != null) {
             Rescue r = new Rescue();
+            ParseACL access = new ParseACL();
+            access.setPublicReadAccess(true);
+            access.setWriteAccess(ParseUser.getCurrentUser(),true);
+
             r.setDescription(mDesc.getText().toString());
             r.setAnimal(animal);
             //Image is not working yet
             //r.setImage(fileUri, bitmap);
             r.setLocation(mLastLocation.getLatitude(), mLastLocation.getLongitude());
             r.setRescueStatus(false);
-            r.setACL(new ParseACL(ParseUser.getCurrentUser()));
+            r.setACL(access);
             r.setUser(ParseUser.getCurrentUser());
             r.saveInBackground();
             mDesc.setText("");
