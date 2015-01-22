@@ -126,7 +126,7 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            Intent intent = new Intent(this, MainActivity_Backup.class);
+            Intent intent = new Intent(this, SettingsActivity.class);
             startActivity(intent);
             return true;
         }
@@ -136,6 +136,12 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
             finish();
+            return true;
+        }
+
+        if (id == R.id.sample) {
+            Intent intent = new Intent(this, MainActivity_Backup.class);
+            startActivity(intent);
             return true;
         }
 

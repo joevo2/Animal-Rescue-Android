@@ -21,10 +21,13 @@
     <string name="cat">Cat</string>
     <string name="dog">Dog</string>
     <string name="others">Others</string>
+
     <string-array name="image_option">
         <item>Camera</item>
         <item>Gallery</item>
     </string-array>
 
+    <string name="title_activity_settings">SettingsActivity</string>
+    <string name="hello_world">Hello world!</string>
 
 </resources>

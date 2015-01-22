@@ -53,7 +53,7 @@ public class RescueFeedFragment extends Fragment{
 
         mAdapter = new RescueAdapter(this.getActivity(), new ArrayList<Rescue>());
         mListView.setAdapter(mAdapter);
-        
+
 
         updateData();
 
