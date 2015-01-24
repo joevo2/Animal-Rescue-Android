@@ -29,8 +29,19 @@ public class RescueAdapter extends ArrayAdapter<Rescue>{
             convertView = mLayoutInflater.inflate(R.layout.rescue_row_item, null);
         }
         Rescue rescue = mRescue.get(position);
-        TextView descriptionView = (TextView) convertView.findViewById(R.id.rescue_desc);
+
+        TextView descriptionView = (TextView) convertView.findViewById(R.id.desc);
+        TextView animalTypeView = (TextView) convertView.findViewById(R.id.animal_type);
+        TextView statusView = (TextView) convertView.findViewById(R.id.status);
+
         descriptionView.setText(rescue.getDescription());
+        animalTypeView.setText(rescue.getAnimal());
+        if(rescue.getRescueStatus()==false){
+            statusView.setText("Awaiting Rescue");
+        } else {
+            statusView.setText("Rescued! :3");
+        }
+
 
         return convertView;
     }

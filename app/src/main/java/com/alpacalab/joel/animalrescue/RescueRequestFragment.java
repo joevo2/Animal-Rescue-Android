@@ -76,7 +76,7 @@ public class RescueRequestFragment extends Fragment implements GoogleApiClient.C
         mImage = (ImageView) rootView.findViewById(R.id.picture_preview);
         mLocation = (TextView) rootView.findViewById(R.id.location);
         mDesc = (EditText) rootView.findViewById(R.id.rescue_desc_input);
-        mAnimal = (RadioGroup) rootView.findViewById(R.id.animal_type);
+        mAnimal = (RadioGroup) rootView.findViewById(R.id.animal_type_input);
 
         //Button
         Button mCamera = (Button) rootView.findViewById(R.id.camera);

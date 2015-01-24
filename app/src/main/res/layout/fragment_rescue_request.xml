@@ -38,7 +38,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/linearLayoutDesc">
         <RadioGroup
-            android:id="@+id/animal_type"
+            android:id="@+id/animal_type_input"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">

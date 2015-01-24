@@ -103,6 +103,14 @@
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings" >
         </activity>
+        <activity
+            android:name=".RescueActivity"
+            android:label="@string/title_activity_rescue"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.alpacalab.joel.animalrescue.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

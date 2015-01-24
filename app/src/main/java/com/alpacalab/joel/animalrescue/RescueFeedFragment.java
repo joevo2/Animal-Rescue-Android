@@ -28,7 +28,7 @@ import java.util.List;
 /**
  * Created by Joel on 12/31/14.
  */
-public class RescueFeedFragment extends Fragment{
+public class RescueFeedFragment extends Fragment implements AdapterView.OnItemClickListener {
     private EditText mTaskInput;
     private ListView mListView;
     private RescueAdapter mAdapter;
@@ -54,6 +54,14 @@ public class RescueFeedFragment extends Fragment{
         mAdapter = new RescueAdapter(this.getActivity(), new ArrayList<Rescue>());
         mListView.setAdapter(mAdapter);
 
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
+                Rescue rescue = mAdapter.getItem(position);
+                Intent intent = new Intent(getActivity(), RescueActivity.class);
+                startActivity(intent);
+            }
+        });
 
         updateData();
 
@@ -86,5 +94,10 @@ public class RescueFeedFragment extends Fragment{
                 }
             }
         });
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
     }
 }
