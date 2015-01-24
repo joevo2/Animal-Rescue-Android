@@ -149,8 +149,6 @@ public class RescueRequestFragment extends Fragment implements GoogleApiClient.C
             mDesc.setText("");
 
             Toast.makeText(getActivity(),"Rescue Request Submited",Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(getActivity(),MainActivity.class);
-            startActivity(intent);
             getActivity().finish();
         } else {
             Toast.makeText(getActivity(),"Rescue Request Incomplete",Toast.LENGTH_SHORT).show();
