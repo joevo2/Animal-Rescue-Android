@@ -59,6 +59,7 @@ public class RescueFeedFragment extends Fragment implements AdapterView.OnItemCl
             public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
                 Rescue rescue = mAdapter.getItem(position);
                 Intent intent = new Intent(getActivity(), RescueActivity.class);
+                intent.putExtra("desc",rescue.getDescription());
                 startActivity(intent);
             }
         });
