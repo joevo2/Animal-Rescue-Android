@@ -6,6 +6,12 @@ Any app user nearby will immediately receive a push notification notifying them 
 This app shall also serve as a platform for non-profit animal rescue organisation to communicate with potential rescuer and adopter effectively.
 The organisation will be shown as Official Account/Channel for the App user to subsribe.
 
+Screenshot
+----------
+Current prototype
+![alt text](http://i.imgur.com/F8Uz8Xg.png"Rescue Feed")
+![alt text](http://i.imgur.com/b4W5tJB.png"Rescue Request")
+
 Component
 ---------
 - [Parse](http://www.parse.com)
