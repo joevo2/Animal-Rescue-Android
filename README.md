@@ -11,7 +11,7 @@ Screenshot
 Current prototype
 <br>
 <img src="http://i.imgur.com/F8Uz8Xg.png" width="200"/>
-<img src="http://i.imgur.com/F8Uz8Xg.png" width="200"/>
+<img src="http://i.imgur.com/b4W5tJB.png" width="200"/>
 
 Component
 ---------
