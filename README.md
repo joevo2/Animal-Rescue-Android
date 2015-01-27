@@ -9,8 +9,8 @@ The organisation will be shown as Official Account/Channel for the App user to s
 Screenshot
 ----------
 Current prototype
-![alt text](http://i.imgur.com/F8Uz8Xg.png"Rescue Feed")
-![alt text](http://i.imgur.com/b4W5tJB.png"Rescue Request")
+![alt text](http://i.imgur.com/F8Uz8Xg.png"Rescue Feed" =250x)
+![alt text](http://i.imgur.com/b4W5tJB.png"Rescue Request" =250x)
 
 Component
 ---------
