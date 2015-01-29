@@ -1,9 +1,16 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        config {
+            storeFile file('/Users/Joel/Dropbox/Alpaca Lab/Android Keystore/animalRescue.jks')
+            keyAlias 'Animal Rescue'
+            keyPassword 'jj021192'
+            storePassword 'jj021192'
+        }
+    }
     compileSdkVersion 21
     buildToolsVersion "21.1.2"
-
     defaultConfig {
         applicationId "com.alpacalab.joel.animalrescue"
         minSdkVersion 16
@@ -15,6 +22,10 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
+        }
+        debug {
+            signingConfig signingConfigs.config
         }
     }
 }
@@ -29,5 +40,4 @@ dependencies {
     compile project(':ParseCrashReporting-1.8.0')
     compile 'com.getbase:floatingactionbutton:1.5.1'
     compile 'com.google.android.gms:play-services:6.5.+'
-
 }
