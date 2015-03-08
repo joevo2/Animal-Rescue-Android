@@ -45,19 +45,13 @@ public class Rescue extends ParseObject{
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
         byte[] image = stream.toByteArray();
         // Create the ParseFile
-        ParseFile file = new ParseFile(uri.toString(), image);
-        try
-        {
-            file.save();
-            put("image", file);
-            Log.d("IMAGE","Image saved");
-        }
-        catch (ParseException e)
-        {
-            Log.d("IMAGE","Image not saved");
-            e.printStackTrace();
-        }
-
+        String path = uri.getPath();
+        String idStr = path.substring(path.lastIndexOf('/') + 1);
+        ParseFile file = new ParseFile(idStr, image);
+        Log.d("IMAGE URI",idStr);
+        file.saveInBackground();
+        put("image", file);
+        Log.d("IMAGE","Image saved");
     }
 
     public void setLocation(double lad, double lon) {

@@ -139,8 +139,7 @@ public class RescueRequestFragment extends Fragment implements GoogleApiClient.C
 
             r.setDescription(mDesc.getText().toString());
             r.setAnimal(animal);
-            //Image is not working yet
-            //r.setImage(fileUri, bitmap);
+            r.setImage(fileUri, bitmap);
             r.setLocation(mLastLocation.getLatitude(), mLastLocation.getLongitude());
             r.setRescueStatus(false);
             r.setACL(access);
