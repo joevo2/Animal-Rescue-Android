@@ -81,7 +81,10 @@ public class RescueFeedFragment extends Fragment implements AdapterView.OnItemCl
 
         return rootView;
     }
-
+    public void onResume() {
+        super.onResume();
+        updateData();
+    }
 
     public void updateData() {
         ParseQuery<Rescue> query = ParseQuery.getQuery(Rescue.class);

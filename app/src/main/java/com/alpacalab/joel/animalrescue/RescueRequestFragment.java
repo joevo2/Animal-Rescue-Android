@@ -124,6 +124,7 @@ public class RescueRequestFragment extends Fragment implements GoogleApiClient.C
             @Override
             public void onClick(View v) {
                 createRescue();
+                getActivity().finish();
             }
         });
 
@@ -148,7 +149,6 @@ public class RescueRequestFragment extends Fragment implements GoogleApiClient.C
             mDesc.setText("");
 
             Toast.makeText(getActivity(),"Rescue Request Submited",Toast.LENGTH_LONG).show();
-            getActivity().finish();
         } else {
             Toast.makeText(getActivity(),"Rescue Request Incomplete",Toast.LENGTH_SHORT).show();
         }
