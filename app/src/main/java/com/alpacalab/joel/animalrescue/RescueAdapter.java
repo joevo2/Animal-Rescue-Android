@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -33,6 +34,7 @@ public class RescueAdapter extends ArrayAdapter<Rescue>{
         TextView descriptionView = (TextView) convertView.findViewById(R.id.desc);
         TextView animalTypeView = (TextView) convertView.findViewById(R.id.animal_type);
         TextView statusView = (TextView) convertView.findViewById(R.id.status);
+        ImageView feedImageView = (ImageView) convertView.findViewById(R.id.feedImage);
 
         descriptionView.setText(rescue.getDescription());
         animalTypeView.setText(rescue.getAnimal());
@@ -41,6 +43,7 @@ public class RescueAdapter extends ArrayAdapter<Rescue>{
         } else {
             statusView.setText("Rescued! :3");
         }
+        feedImageView.setImageBitmap(rescue.getImage());
 
 
         return convertView;
