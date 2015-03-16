@@ -74,7 +74,8 @@ public class RescueActivity extends ActionBarActivity {
             final ImageView img = (ImageView)rootView.findViewById(R.id.activityImage);
             Bundle data = getActivity().getIntent().getExtras();
             if (data != null) {
-                Rescue rescue = (Rescue) data.getParcelable("data");
+                Log.d("Data","Data not null");
+                Rescue rescue = (Rescue) data.get("data");
                 desc.setText(rescue.getDescription());
                 ParseFile fileObject = rescue.getImage();
                 if (fileObject !=  null) {

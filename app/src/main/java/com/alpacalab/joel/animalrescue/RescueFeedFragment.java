@@ -84,7 +84,7 @@ public class RescueFeedFragment extends Fragment implements AdapterView.OnItemCl
     }
     public void onResume() {
         super.onResume();
-        //updateData();
+        updateData();
     }
 
     public void updateData() {
