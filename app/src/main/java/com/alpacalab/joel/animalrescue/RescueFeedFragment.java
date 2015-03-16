@@ -3,6 +3,7 @@ package com.alpacalab.joel.animalrescue;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -59,7 +60,7 @@ public class RescueFeedFragment extends Fragment implements AdapterView.OnItemCl
             public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
                 Rescue rescue = mAdapter.getItem(position);
                 Intent intent = new Intent(getActivity(), RescueActivity.class);
-                intent.putExtra("desc",rescue.getDescription());
+                intent.putExtra("data",(Parcelable)rescue);
                 startActivity(intent);
             }
         });
@@ -83,7 +84,7 @@ public class RescueFeedFragment extends Fragment implements AdapterView.OnItemCl
     }
     public void onResume() {
         super.onResume();
-        updateData();
+        //updateData();
     }
 
     public void updateData() {

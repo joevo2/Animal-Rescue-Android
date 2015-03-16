@@ -1,16 +1,24 @@
 package com.alpacalab.joel.animalrescue;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.os.Build;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.parse.GetDataCallback;
+import com.parse.ParseException;
+import com.parse.ParseFile;
 
 
 public class RescueActivity extends ActionBarActivity {
@@ -62,11 +70,29 @@ public class RescueActivity extends ActionBarActivity {
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_rescue, container, false);
 
-            TextView test = (TextView)rootView.findViewById(R.id.test);
-            Bundle extras = getActivity().getIntent().getExtras();
-            if (extras != null) {
-                String value = extras.getString("desc");
-                test.setText(value);
+            TextView desc = (TextView)rootView.findViewById(R.id.activityDesc);
+            final ImageView img = (ImageView)rootView.findViewById(R.id.activityImage);
+            Bundle data = getActivity().getIntent().getExtras();
+            if (data != null) {
+                Rescue rescue = (Rescue) data.getParcelable("data");
+                desc.setText(rescue.getDescription());
+                ParseFile fileObject = rescue.getImage();
+                if (fileObject !=  null) {
+                    fileObject.getDataInBackground(new GetDataCallback() {
+                        public void done(byte[] data, ParseException e) {
+                            if (e == null) {
+                                Log.d("ImageFeed", "We've got data in data.");
+                                // Decode the Byte[] into
+                                // Bitmap
+                                Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
+                                img.setImageBitmap(bmp);
+                            } else {
+                                Log.d("ImageFeed", "There was a problem downloading the data.");
+                            }
+                        }
+
+                    });
+                }
             }
 
             return rootView;

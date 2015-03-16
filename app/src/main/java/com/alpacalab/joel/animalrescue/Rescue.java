@@ -3,6 +3,8 @@ package com.alpacalab.joel.animalrescue;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.Log;
 
 import com.parse.GetCallback;
@@ -22,7 +24,7 @@ import java.io.ByteArrayOutputStream;
  * Created by Joel on 1/20/15.
  */
 @ParseClassName("Rescue")
-public class Rescue extends ParseObject{
+public class Rescue extends ParseObject implements Parcelable {
     Bitmap bmp;
 
     public Rescue() {
@@ -62,38 +64,6 @@ public class Rescue extends ParseObject{
     }
 
     public ParseFile getImage(){
-//        // Locate the class table named "ImageUpload" in Parse.com
-//        ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("Rescue");
-//        // Locate the objectId from the class
-//        query.getInBackground("", new GetCallback<ParseObject>() {
-//            public void done(ParseObject object, ParseException e) {
-//                // Locate the column named "ImageName" and set
-//                // the string
-//                ParseFile fileObject = (ParseFile) get("image");
-//                fileObject.getDataInBackground(new GetDataCallback() {
-//                    public void done(byte[] data, ParseException e) {
-//                        if (e == null) {
-//                            Log.d("ImageFeed", "We've got data in data.");
-//                            // Decode the Byte[] into
-//                            // Bitmap
-//                            bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
-//                            // Get the ImageView from
-//                            // main.xml
-//
-//                            //ImageView image = (ImageView) findViewById(R.id.image);
-//
-//                            // Set the Bitmap into the
-//                            // ImageView
-//
-//                            //image.setImageBitmap(bmp);
-//                        } else {
-//                            Log.d("ImageFeed", "There was a problem downloading the data.");
-//                        }
-//                    }
-//
-//                });
-//            }
-//        });
         ParseFile fileObject = (ParseFile) get("image");
         return fileObject;
     }
@@ -114,4 +84,32 @@ public class Rescue extends ParseObject{
     public void setUser(ParseUser user) {
         put("user", user);
     }
+
+
+    protected Rescue(Parcel in) {
+        bmp = (Bitmap) in.readValue(Bitmap.class.getClassLoader());
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeValue(bmp);
+    }
+
+    @SuppressWarnings("unused")
+    public static final Parcelable.Creator<Rescue> CREATOR = new Parcelable.Creator<Rescue>() {
+        @Override
+        public Rescue createFromParcel(Parcel in) {
+            return new Rescue(in);
+        }
+
+        @Override
+        public Rescue[] newArray(int size) {
+            return new Rescue[size];
+        }
+    };
 }
