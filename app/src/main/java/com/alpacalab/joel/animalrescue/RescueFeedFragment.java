@@ -92,10 +92,10 @@ public class RescueFeedFragment extends Fragment implements AdapterView.OnItemCl
         query.findInBackground(new FindCallback<Rescue>() {
             @Override
             public void done(List<Rescue> rescue, ParseException e) {
-                if(rescue != null) {
-                    mAdapter.clear();
-                    mAdapter.addAll(rescue);
-                }
+            if(rescue != null) {
+                mAdapter.clear();
+                mAdapter.addAll(rescue);
+            }
             }
         });
     }

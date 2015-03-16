@@ -61,40 +61,41 @@ public class Rescue extends ParseObject{
         Log.d("IMAGE","Image saved");
     }
 
-    public Bitmap getImage(){
-        // Locate the class table named "ImageUpload" in Parse.com
-        ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("Rescue");
-        // Locate the objectId from the class
-        query.getInBackground("", new GetCallback<ParseObject>() {
-            public void done(ParseObject object, ParseException e) {
-                // Locate the column named "ImageName" and set
-                // the string
-                ParseFile fileObject = (ParseFile) get("image");
-                fileObject.getDataInBackground(new GetDataCallback() {
-                    public void done(byte[] data, ParseException e) {
-                        if (e == null) {
-                            Log.d("ImageFeed", "We've got data in data.");
-                            // Decode the Byte[] into
-                            // Bitmap
-                            bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
-                            // Get the ImageView from
-                            // main.xml
-
-                            //ImageView image = (ImageView) findViewById(R.id.image);
-
-                            // Set the Bitmap into the
-                            // ImageView
-
-                            //image.setImageBitmap(bmp);
-                        } else {
-                            Log.d("ImageFeed", "There was a problem downloading the data.");
-                        }
-                    }
-
-                });
-            }
-        });
-        return bmp;
+    public ParseFile getImage(){
+//        // Locate the class table named "ImageUpload" in Parse.com
+//        ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("Rescue");
+//        // Locate the objectId from the class
+//        query.getInBackground("", new GetCallback<ParseObject>() {
+//            public void done(ParseObject object, ParseException e) {
+//                // Locate the column named "ImageName" and set
+//                // the string
+//                ParseFile fileObject = (ParseFile) get("image");
+//                fileObject.getDataInBackground(new GetDataCallback() {
+//                    public void done(byte[] data, ParseException e) {
+//                        if (e == null) {
+//                            Log.d("ImageFeed", "We've got data in data.");
+//                            // Decode the Byte[] into
+//                            // Bitmap
+//                            bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
+//                            // Get the ImageView from
+//                            // main.xml
+//
+//                            //ImageView image = (ImageView) findViewById(R.id.image);
+//
+//                            // Set the Bitmap into the
+//                            // ImageView
+//
+//                            //image.setImageBitmap(bmp);
+//                        } else {
+//                            Log.d("ImageFeed", "There was a problem downloading the data.");
+//                        }
+//                    }
+//
+//                });
+//            }
+//        });
+        ParseFile fileObject = (ParseFile) get("image");
+        return fileObject;
     }
 
     public void setLocation(double lad, double lon) {
