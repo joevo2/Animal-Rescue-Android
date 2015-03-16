@@ -1,11 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:orientation="horizontal" >
 
+    <LinearLayout
+        android:id="@+id/linearFeedImage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/feedImage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription="Image Preview"
+            android:scaleType="centerInside"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearFeedDesc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearFeedImage">
     <TextView
         android:id="@+id/desc"
         android:layout_width="0dp"
@@ -27,4 +44,6 @@
         android:layout_gravity="center_vertical"
         android:layout_weight="1"
         android:textAppearance="?android:attr/textAppearanceMedium" />
-</LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>
