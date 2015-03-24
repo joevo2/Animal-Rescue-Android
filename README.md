@@ -6,15 +6,11 @@ Any app user nearby will immediately receive a push notification notifying them 
 This app shall also serve as a platform for non-profit animal rescue organisation to communicate with potential rescuer and adopter effectively.
 The organisation will be shown as Official Account/Channel for the App user to subsribe.
 
-Screenshot
-----------
-Current prototype
-<br>
-<img src="http://i.imgur.com/F8Uz8Xg.png" width="200"/>
-<img src="http://i.imgur.com/b4W5tJB.png" width="200"/>
-
 Component
 ---------
-- [Parse](http://www.parse.com)
-- [Floating Action Bar](https://github.com/futuresimple/android-floating-action-button)
-- [CardView](https://github.com/gabrielemariotti/cardslib)
+- [Parse](http://www.parse.com) As Backend
+- [Future Simple Floating Action Bar](https://github.com/futuresimple/android-floating-action-button)
+
+Progress
+--------
+[Trello Board](https://trello.com/b/9piNoIBi)
