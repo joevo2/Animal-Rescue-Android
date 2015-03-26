@@ -44,15 +44,10 @@ public class RescueFeedFragment extends Fragment implements AdapterView.OnItemCl
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        RelativeLayout rootView = (RelativeLayout) inflater.inflate(R.layout.fragment_rescue_feed, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_rescue_feed, container, false);
 
         //RecyclerView for CardView
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.rescue_list);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-
-        mAdapter = new RescueAdapter(this.getActivity(), new ArrayList<Rescue>());
-        mRecyclerView.setAdapter(mAdapter);
 
 //        mRecyclerView.setOnClickListener(new AdapterView.OnItemClickListener() {
 //            @Override
@@ -67,20 +62,30 @@ public class RescueFeedFragment extends Fragment implements AdapterView.OnItemCl
 //        updateData();
 
         //Floating action button
-        final FloatingActionsMenu mActionMenu = (FloatingActionsMenu) rootView.findViewById(R.id.multiple_actions);
-        FloatingActionButton mAction = (FloatingActionButton) rootView.findViewById(R.id.action_a);
-        mAction.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), RescueRequestActivity.class);
-                startActivity(intent);
-                mActionMenu.collapse();
-            }
-        });
+//        final FloatingActionsMenu mActionMenu = (FloatingActionsMenu) rootView.findViewById(R.id.multiple_actions);
+//        FloatingActionButton mAction = (FloatingActionButton) rootView.findViewById(R.id.action_a);
+//        mAction.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(getActivity(), RescueRequestActivity.class);
+//                startActivity(intent);
+//                mActionMenu.collapse();
+//            }
+//        });
 
 
         return rootView;
     }
+
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        mAdapter = new RescueAdapter(this.getActivity(), new ArrayList<Rescue>());
+        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+    }
+
     public void onResume() {
         super.onResume();
 //        updateData();
@@ -92,10 +97,10 @@ public class RescueFeedFragment extends Fragment implements AdapterView.OnItemCl
 //        query.findInBackground(new FindCallback<Rescue>() {
 //            @Override
 //            public void done(List<Rescue> rescue, ParseException e) {
-//            if(rescue != null) {
-//                mAdapter.clear();
-//                mAdapter.addAll(rescue);
-//            }
+//                if(rescue != null) {
+//                    mAdapter.clear();
+//                    mAdapter.addAll(rescue);
+//                }
 //            }
 //        });
 //    }

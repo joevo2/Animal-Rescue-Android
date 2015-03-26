@@ -31,37 +31,42 @@ public class RescueAdapter extends RecyclerView.Adapter<RescueAdapter.ViewHolder
     }
 
     @Override
-    public RescueAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.rescue_row_item, parent, false);
+    public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.rescue_row_item, viewGroup, false);
         return new ViewHolder(v);    }
 
     @Override
     public void onBindViewHolder(final RescueAdapter.ViewHolder holder, int position) {
         Rescue rescue = mRescue.get(position);
-        holder.descriptionView.setText(rescue.getDescription());
-        holder.animalTypeView.setText(rescue.getAnimal());
-        if(rescue.getRescueStatus()==false){
-            holder.statusView.setText("Awaiting Rescue");
-        } else {
-            holder.statusView.setText("Rescued! :3");
-        }
-        ParseFile fileObject = rescue.getImage();
-        if (fileObject !=  null) {
-            fileObject.getDataInBackground(new GetDataCallback() {
-                public void done(byte[] data, ParseException e) {
-                    if (e == null) {
-                        Log.d("ImageFeed", "We've got data in data.");
-                        // Decode the Byte[] into
-                        // Bitmap
-                        Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
-                        holder.feedImageView.setImageBitmap(bmp);
-                    } else {
-                        Log.d("ImageFeed", "There was a problem downloading the data.");
-                    }
-                }
 
-            });
-        }
+        //Text
+        holder.descriptionView.setText("Testing");
+        Log.d("CardView","Print Testing");
+//        holder.animalTypeView.setText(rescue.getAnimal());
+//        if(rescue.getRescueStatus()==false){
+//            holder.statusView.setText("Awaiting Rescue");
+//        } else {
+//            holder.statusView.setText("Rescued! :3");
+//        }
+//
+//        //Image
+//        ParseFile fileObject = rescue.getImage();
+//        if (fileObject !=  null) {
+//            fileObject.getDataInBackground(new GetDataCallback() {
+//                public void done(byte[] data, ParseException e) {
+//                    if (e == null) {
+//                        Log.d("ImageFeed", "We've got data in data.");
+//                        // Decode the Byte[] into
+//                        // Bitmap
+//                        Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
+//                        holder.feedImageView.setImageBitmap(bmp);
+//                    } else {
+//                        Log.d("ImageFeed", "There was a problem downloading the data.");
+//                    }
+//                }
+//
+//            });
+//        }
     }
 
     @Override
@@ -77,11 +82,10 @@ public class RescueAdapter extends RecyclerView.Adapter<RescueAdapter.ViewHolder
 
         public ViewHolder(View itemView) {
             super(itemView);
-
             descriptionView = (TextView) itemView.findViewById(R.id.desc);
-            animalTypeView = (TextView) itemView.findViewById(R.id.animal_type);
-            statusView = (TextView) itemView.findViewById(R.id.status);
-            feedImageView = (ImageView) itemView.findViewById(R.id.feedImage);
+//            animalTypeView = (TextView) itemView.findViewById(R.id.animal_type);
+//            statusView = (TextView) itemView.findViewById(R.id.status);
+//            feedImageView = (ImageView) itemView.findViewById(R.id.feedImage);
         }
     }
 }
