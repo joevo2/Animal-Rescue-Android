@@ -138,13 +138,6 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
             finish();
             return true;
         }
-
-        if (id == R.id.sample) {
-            Intent intent = new Intent(this, MainActivity_Backup.class);
-            startActivity(intent);
-            return true;
-        }
-
         return super.onOptionsItemSelected(item);
     }
 
